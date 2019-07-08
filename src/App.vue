@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <CryptoCard title="Bitcoin"/>
+    <CryptoCard crypto="BTC" />
   </div>
 </template>
 
