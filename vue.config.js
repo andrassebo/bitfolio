@@ -14,7 +14,7 @@ module.exports = {
   },
 
   pwa: {
-    name: "Fin 5",
+    name: "Bitfolio",
     themeColor: "#DAA520"
   },
 

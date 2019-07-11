@@ -1,21 +1,23 @@
 <template>
   <div>
-    <b-card>
-      <b-card :img-src="require('../assets/'+crypto+'_logo.png')" :title="crypto" imt-top></b-card>
+    <b-spinner v-if="isLoading"></b-spinner>
+    <b-card :img-src="`/images/${crypto}_logo.png`" :title="crypto" imt-top v-else>
       <b-card-text>{{ priceData.last }} EUR</b-card-text>
       <div slot="footer">
-        <small class="text-muted"></small>
+        <small class="text-muted">H: {{ priceData.high }}</small>
+        <small class="text-muted">L: {{ priceData.low }}</small>
       </div>
     </b-card>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import BitstampClient from "@/services/BitstampClient";
 
 export default {
   data() {
     return {
+      isLoading: true,
       priceData: null
     };
   },
@@ -24,18 +26,12 @@ export default {
     crypto: String
   },
   created() {
-    const proxy = "https://cors-anywhere.herokuapp.com/";
-    const bitstampUrl = "https://www.bitstamp.net/api/v2/ticker/";
-    const url = proxy + bitstampUrl + encodeURI(this.crypto) + "eur/";
-    axios
-      .get(url, {
-        headers: {
-          "Access-Control-Allow-Headers": "origin"
-        }
-      })
-      .then(response => {
-        this.priceData = response.data;
-      });
+    BitstampClient.getCryptoPrice(this.crypto).then(result => {
+      this.priceData = result;
+      this.isLoading = false;
+    });
+
+    BitstampClient.getTransactions();
   }
 };
 </script>

@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <CryptoCard crypto="BTC" />
+    <CryptoDeck />
   </div>
 </template>
 
 <script>
-import CryptoCard from "./components/CryptoCard.vue";
+import CryptoDeck from "./components/CryptoDeck.vue";
 
 export default {
   name: "app",
   components: {
-    CryptoCard
+    CryptoDeck
   }
 };
 </script>
